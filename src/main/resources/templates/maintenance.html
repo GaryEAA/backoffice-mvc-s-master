@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento de Películas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5 mb-5">
+
+    <div class="mt-3 mb-3 text-center">
+        <h3>Mantenimiento de películas</h3>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <a th:href="@{/maintenance/insert}" class="btn btn-outline-primary">Registrar nueva película</a>
+        </div>
+        <div class="col-6 text-end">
+            <strong>Total de películas: </strong>
+            <span th:text="${films.size()}"></span>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered text-center table-sm">
+            <thead class="table-dark">
+            <tr>
+                <th>Código</th>
+                <th>Título</th>
+                <th>Lenguaje</th>
+                <th>Precio de alquiler (USD)</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="film : ${films}">
+                <td>
+                    <a th:href="@{/maintenance/detail/{id}(id=${film.filmId()})}" class="btn btn-outline-info btn-sm">
+                        <span th:text="${film.filmId()}"></span>
+                    </a>
+                </td>
+                <td th:text="${film.title()}"></td>
+                <td th:text="${film.language()}"></td>
+                <td th:text="${film.rentalRate()}"></td>
+                <td>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a th:href="@{/maintenance/edit/{id}(id=${film.filmId()})}" class="btn btn-outline-success btn-sm">
+                            Editar
+                        </a>
+                        <a th:href="@{/maintenance/delete/{id}(id=${film.filmId()})}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta película?');">
+                            Eliminar
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
